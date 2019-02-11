@@ -5,22 +5,22 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kapman
-Version  : 18.08.0
-Release  : 1
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kapman-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kapman-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kapman-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 2
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kapman-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kapman-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kapman-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GFDL-1.2 GPL-2.0
-Requires: kapman-bin
-Requires: kapman-data
-Requires: kapman-license
-Requires: kapman-locales
+Requires: kapman-bin = %{version}-%{release}
+Requires: kapman-data = %{version}-%{release}
+Requires: kapman-license = %{version}-%{release}
+Requires: kapman-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : libkdegames-dev
-BuildRequires : qtbase-dev qtbase-extras mesa-dev
+BuildRequires : qtbase-dev mesa-dev
 
 %description
 EXTENDED
@@ -28,8 +28,8 @@ EXTENDED
 %package bin
 Summary: bin components for the kapman package.
 Group: Binaries
-Requires: kapman-data
-Requires: kapman-license
+Requires: kapman-data = %{version}-%{release}
+Requires: kapman-license = %{version}-%{release}
 
 %description bin
 bin components for the kapman package.
@@ -68,26 +68,26 @@ locales components for the kapman package.
 
 
 %prep
-%setup -q -n kapman-18.08.0
+%setup -q -n kapman-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535226875
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549861946
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535226875
+export SOURCE_DATE_EPOCH=1549861946
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kapman
-cp COPYING %{buildroot}/usr/share/doc/kapman/COPYING
-cp COPYING.DOC %{buildroot}/usr/share/doc/kapman/COPYING.DOC
+mkdir -p %{buildroot}/usr/share/package-licenses/kapman
+cp COPYING %{buildroot}/usr/share/package-licenses/kapman/COPYING
+cp COPYING.DOC %{buildroot}/usr/share/package-licenses/kapman/COPYING.DOC
 pushd clr-build
 %make_install
 popd
@@ -176,9 +176,9 @@ popd
 /usr/share/doc/HTML/uk/kapman/kapman.png
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kapman/COPYING
-/usr/share/doc/kapman/COPYING.DOC
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kapman/COPYING
+/usr/share/package-licenses/kapman/COPYING.DOC
 
 %files locales -f kapman.lang
 %defattr(-,root,root,-)
